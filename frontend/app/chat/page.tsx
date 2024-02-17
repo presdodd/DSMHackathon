@@ -1,11 +1,14 @@
 // app.tsx
 "use client"
-import React, { useState } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import ReactDOM from 'react-dom';
+
 
 const Chatbox = () => {
   const [messages, setMessages] = useState<string[]>([]);
   const [input, setInput] = useState<string>('');
+  const chatboxRef = useRef<HTMLDivElement>(null);
+  const answersRef = useRef<HTMLDivElement>(null);
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setInput(e.target.value);
@@ -24,26 +27,30 @@ const Chatbox = () => {
     }
   };
 
+  useEffect(() => {
+    // Scroll down the chatbox when messages are added
+    if (chatboxRef.current) {
+      chatboxRef.current.scrollTop = chatboxRef.current.scrollHeight;
+    }
+  }, [messages]);
+
   return (
     <div>
+      {/* Header  */}
       <div className="flex items-center mb-4">
-        <img src="/logo.png" alt="Logo" className="h-8 w-8 mr-2" /> {/* Add your logo */}
+        <img src="/logo.png" alt="Logo" className="h-8 w-8 mr-2" />
         <h1 className="text-2xl font-bold">Fishy Fellas</h1>
       </div>
 
-
+      {/* Chatbox container */}
       <div className="container mx-auto my-8 p-4 bg-gray-200 rounded shadow">
-        <div className="h-48 overflow-y-scroll border-b mb-4">
+        <div ref={chatboxRef} className="h-48 overflow-y-scroll border-b mb-4">
           {messages.map((message, index) => (
-            <div key={index} className="py-2 text-black">{message}</div>
+            <div key={index} className="py-2 text-black whitespace-pre-line">{message}</div>
           ))}
         </div>
-
-        <div className="h-48 overflow-y-scroll border-b mb-4">
-          {/* Display answers here */}
-        </div>
-
-        <div className="flex">
+        
+        <div className="flex p-4">
           <input
             type="text"
             value={input}
@@ -57,6 +64,10 @@ const Chatbox = () => {
           >
             Send
           </button>
+        </div>
+
+        <div /*ref={answersRef}*/ className="h-48 overflow-y-scroll border-b mb-4">
+          {/* Display answers here */}
         </div>
       </div>
     </div>
