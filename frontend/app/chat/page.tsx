@@ -25,26 +25,39 @@ const Chatbox = () => {
   };
 
   return (
-    <div className="container mx-auto my-8 p-4 bg-gray-200 rounded shadow">
-      <div className="h-48 overflow-y-scroll border-b mb-4">
-        {messages.map((message, index) => (
-          <div key={index} className="py-2 text-black">{message}</div>
-        ))}
+    <div>
+      <div className="flex items-center mb-4">
+        <img src="/logo.png" alt="Logo" className="h-8 w-8 mr-2" /> {/* Add your logo */}
+        <h1 className="text-2xl font-bold">Fishy Fellas</h1>
       </div>
-      <div className="flex">
-        <input
-          type="text"
-          value={input}
-          onChange={handleInputChange}
-          onKeyPress={handleKeyPress} 
-          className="flex-grow mr-2 border p-2 text-black"
-        />
-        <button
-          onClick={handleSendMessage}
-          className="bg-green-500 text-white px-4 py-2 rounded"
-        >
-          Send
-        </button>
+
+
+      <div className="container mx-auto my-8 p-4 bg-gray-200 rounded shadow">
+        <div className="h-48 overflow-y-scroll border-b mb-4">
+          {messages.map((message, index) => (
+            <div key={index} className="py-2 text-black">{message}</div>
+          ))}
+        </div>
+
+        <div className="h-48 overflow-y-scroll border-b mb-4">
+          {/* Display answers here */}
+        </div>
+
+        <div className="flex">
+          <input
+            type="text"
+            value={input}
+            onChange={handleInputChange}
+            onKeyPress={handleKeyPress} 
+            className="flex-grow mr-2 border p-2 text-black"
+          />
+          <button
+            onClick={handleSendMessage}
+            className="bg-green-500 text-white px-4 py-2 rounded"
+          >
+            Send
+          </button>
+        </div>
       </div>
     </div>
   );
