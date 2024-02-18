@@ -6,11 +6,10 @@ def get_info(prompt):
 
     for name in df['name']:
         #print(type(name))
-        x = name.casefold()
-        y = prompt.casefold()
-        if x in y:
-            temp = df['info']
-            #print(type(temp))
-            return str(temp)
+        name = name.casefold()
+        prompt = prompt.casefold()
+        if name in prompt:
+            row = df[df['name'] == name]
+            return str(row)
     else:
         return ("sorry fish question could not be answered?")
