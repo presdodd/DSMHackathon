@@ -1,13 +1,30 @@
 from openai import OpenAI
 from dotenv import load_dotenv
 import data_grabber
+import requests
+
 
 respons = ""
+
+def send_query_request():
+    url = 'http://localhost:5000/'  # Replace with your Flask app URL
+    try:
+        response = requests.get(url)
+        if response.status_code == 200:
+            data = response.json()
+            result = data['result']  # Assuming the response has a 'result' field
+            return result
+        else:
+            print('Error:', response.status_code)
+            return None
+    except Exception as e:
+        print('Error:', e)
+        return None
 
 def load_model():
     load_dotenv()
     client = OpenAI()
-    prompt = "Can you give me goldfish care tips?"
+    prompt = str(send_query_request())
     context = data_grabber.get_info(prompt)
     response = client.chat.completions.create(
         model = "gpt-3.5-turbo-0125",
