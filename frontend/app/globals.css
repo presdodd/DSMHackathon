@@ -1,3 +1,5 @@
+/* Globals.css */
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -19,16 +21,37 @@
 body {
   color: rgb(var(--foreground-rgb));
   background: linear-gradient(
-      to bottom,
-      transparent,
-      rgb(var(--background-end-rgb))
-    )
-    rgb(var(--background-start-rgb));
-  min-height: 100vh; /* Ensure the gradient covers the entire viewport height */
+    to bottom,
+    rgb(var(--background-start-rgb)),
+    rgb(var(--background-end-rgb))
+  );
+  min-height: 100vh;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; /* Change the font as needed */
+  line-height: 1.6; /* Improved readability with a slightly increased line height */
 }
 
-@layer utilities {
-  .text-balance {
-    text-wrap: balance;
-  }
+/* Improve readability of long paragraphs by setting max-width */
+.container {
+  max-width: 800px; /* Adjust the value based on your layout */
+  margin: 0 auto;
+  padding: 20px;
 }
+
+/* Apply text-balance class to specific elements where needed */
+.text-balance {
+  text-align: justify;
+}
+
+/* Customize your link styles */
+a {
+  color: #3498db; /* Change to your preferred link color */
+  text-decoration: none;
+  transition: color 0.3s ease;
+}
+
+a:hover {
+  color: #2980b9; /* Change to your preferred link hover color */
+}
+
+/* Add additional styles for other elements as needed */
+
