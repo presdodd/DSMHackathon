@@ -2,8 +2,26 @@
 "use client"
 import React, { useState, useRef, useEffect } from 'react';
 import ReactDOM from 'react-dom';
+import axios from "axios";
 import Link from 'next/link';
 import Header from '../components/header.js';
+
+const [ai_response, setAi_response] = useState(null)
+function getData() {
+  axios({
+    method: "GET",
+    url:"/",
+  })
+  .then((response) => {
+    const res = response.data
+    setAi_response(res.response)
+  }).catch((error) => {
+    if (error.response) {
+      console.log(error.response)
+      console.log(error.response.status)
+      console.log(error.response.headers)
+      }
+  })}
 
 const Chatbox = () => {
   const [messages, setMessages] = useState<string[]>([]);
