@@ -72,7 +72,9 @@ const Chatbox = () => {
   const getData = async () => {
     try {
       const response = await axios.post("http://127.0.0.1:5000/", {text: input});
-      return response.data.response;
+      const return_data = response.data;
+      console.log("answer: ", return_data);
+      return return_data["message"]
     } catch (error) {
       console.error("Error fetching data:", error);
       throw error;
