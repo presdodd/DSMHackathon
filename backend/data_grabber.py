@@ -2,7 +2,7 @@ import pandas as pd
 
 
 def get_info(prompt):
-    data = df = pd.read_csv('data/data.csv')
+    df = pd.read_csv('data/data.csv')
 
     for name in df['name']:
         #print(type(name))

@@ -7,7 +7,7 @@ import requests
 respons = ""
 
 def send_query_request():
-    url = 'http://localhost:5000/msg'  # Replace with your Flask app URL
+    url = 'http://localhost:5000/'  # Replace with your Flask app URL
     try:
         response = requests.get(url)
         if response.status_code == 200:
