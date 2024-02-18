@@ -28,14 +28,17 @@ def load_model(data):
     prompt = str(data["text"])
     context = data_grabber.get_info(prompt,data["isDiagnosis"])
     response = client.chat.completions.create(
-        model = "gpt-3.5-turbo-0125",
-        temperature = 0.8,
-        max_tokens = 3000,
-        messages = [
-            {"role": "system", "content": "This is the prompt" + prompt + "This is the context" + context},
-            {"role": "user", "content": "Using the prompt and the context, can you give me a summarized paragraph?"}
-        ]
-        )
+            model = "gpt-3.5-turbo-0125",
+            temperature = 0.8,
+            max_tokens = 3000,
+            messages = [
+                {"role": "system", "content": "Use this context to answer the following prompt. \
+Make sure to be succinct and reply in terms of the provided context.\nContext: " + context+"\n"},
+                {"role": "user", "content": "Prompt: "+prompt}
+            ]
+            )
     chat_resp = response.choices[0].message.content
+    if data["isDiagnosis"]:
+        chat_resp = data_grabber.get_treatment(chat_resp) 
     # print(chat_resp)
     return chat_resp
