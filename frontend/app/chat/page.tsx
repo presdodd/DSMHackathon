@@ -5,6 +5,7 @@ import ReactDOM from 'react-dom';
 import axios from "axios";
 import Link from 'next/link';
 import Header from '../components/header.js';
+// import Checkbox from '../components/checkbox';
 
 
 // function getData() {
@@ -29,7 +30,12 @@ import Header from '../components/header.js';
 const Chatbox = () => {
   const [messages, setMessages] = useState<string[]>([]);
   const [input, setInput] = useState<string>('');
-  const [aiResponse, setAiResponse] = useState<string | null>(null); // State for AI response
+  const [aiResponse, setAiResponse] = useState<string | null>(null); // State for AI response-
+  const [isChecked, setIsChecked] = useState(false);
+
+  const handleCheckboxChange = () => {
+    setIsChecked(!isChecked);
+  };
   
   const chatboxRef = useRef<HTMLDivElement>(null);
   const answersRef = useRef<HTMLDivElement>(null);
@@ -71,7 +77,7 @@ const Chatbox = () => {
   ///////
   const getData = async () => {
     try {
-      const response = await axios.post("http://127.0.0.1:5000/", {text: input});
+      const response = await axios.post("http://127.0.0.1:5000/", {text: input, isDiagnosis: isChecked});
       const return_data = response.data;
       console.log("answer: ", return_data);
       return return_data["message"]
@@ -93,6 +99,7 @@ const Chatbox = () => {
         </div>
         
         <div className="flex p-4">
+          <label ></label>
           <input
             type="text"
             value={input}
@@ -106,6 +113,15 @@ const Chatbox = () => {
           >
             Send
           </button>
+          <div>
+            <label className="flex items-center text-indigo-600"><input
+              type="checkbox"
+              checked={isChecked}
+              onChange={handleCheckboxChange}
+              className="h-6 w-6 text-indigo-600 border-gray-300 rounded focus:ring-indigo-500"
+            />
+            Disease Diagnosis?</label>
+          </div>
         </div>
 
         <div ref={answersRef} className="h-48 overflow-y-scroll border-b mb-4 text-black">
