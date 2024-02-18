@@ -38,7 +38,7 @@ const Chatbox = () => {
     <div>
       {/* Header  */}
       <div className="flex items-center mb-4">
-        <img src="/logo.png" alt="Logo" className="h-8 w-8 mr-2" />
+        <img src="/logo.jpg" alt="Logo" className="h-8 w-8 mr-2" />
         <h1 className="text-2xl font-bold">Fishy Fellas</h1>
       </div>
 
