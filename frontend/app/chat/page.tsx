@@ -2,7 +2,8 @@
 "use client"
 import React, { useState, useRef, useEffect } from 'react';
 import ReactDOM from 'react-dom';
-
+import Link from 'next/link';
+import Header from '../components/header.js';
 
 const Chatbox = () => {
   const [messages, setMessages] = useState<string[]>([]);
@@ -36,12 +37,6 @@ const Chatbox = () => {
 
   return (
     <div>
-      {/* Header  */}
-      <div className="flex items-center mb-4">
-        <img src="/logo.png" alt="Logo" className="h-8 w-8 mr-2" />
-        <h1 className="text-2xl font-bold">Fishy Fellas</h1>
-      </div>
-
       {/* Chatbox container */}
       <div className="container mx-auto my-8 p-4 bg-gray-200 rounded shadow">
         <div ref={chatboxRef} className="h-48 overflow-y-scroll border-b mb-4">

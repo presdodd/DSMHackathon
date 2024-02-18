@@ -24,6 +24,7 @@ body {
       rgb(var(--background-end-rgb))
     )
     rgb(var(--background-start-rgb));
+  min-height: 100vh; /* Ensure the gradient covers the entire viewport height */
 }
 
 @layer utilities {
