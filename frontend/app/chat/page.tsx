@@ -1,3 +1,6 @@
+// Plays the role of home page
+
+
 // app.tsx
 "use client"
 import React, { useState, useRef, useEffect } from 'react';
@@ -64,10 +67,11 @@ const Chatbox = () => {
     }
   };
 
+  
   return (
     <div>
       {/* Chatbox container */}
-      <div className="container mx-auto my-8 p-4 bg-gray-200 rounded shadow">
+      <div className="container mx-auto my-8 p-4 bg-gray-200 rounded shadow flex flex-col">
         <div ref={chatboxRef} className="flex flex-col h-full overflow-y-scroll border-b mb-4">
           {messages.map((message, index) => (
             <div key={index} className="py-2 whitespace-pre-line">
@@ -79,8 +83,7 @@ const Chatbox = () => {
           ))}
         </div>
 
-        <div className="flex p-4 border">
-          <label></label>
+        <div className="flex p-4 border items-center">
           <input
             type="text"
             value={input}
@@ -94,7 +97,7 @@ const Chatbox = () => {
           >
             Send
           </button>
-          <div>
+          <div className="ml-4">
             <label className="flex items-center text-indigo-600">
               <input
                 type="checkbox"
@@ -106,7 +109,6 @@ const Chatbox = () => {
             </label>
           </div>
         </div>
-
       </div>
     </div>
   );
