@@ -6,26 +6,31 @@ import axios from "axios";
 import Link from 'next/link';
 import Header from '../components/header.js';
 
-const [ai_response, setAi_response] = useState(null)
-function getData() {
-  axios({
-    method: "GET",
-    url:"/",
-  })
-  .then((response) => {
-    const res = response.data
-    setAi_response(res.response)
-  }).catch((error) => {
-    if (error.response) {
-      console.log(error.response)
-      console.log(error.response.status)
-      console.log(error.response.headers)
-      }
-  })}
+
+// function getData() {
+//   const [ai_response, setAi_response] = useState(null)
+//   axios({
+//     method: "GET",
+//     url:"/",
+//   })
+//   .then((response) => {
+//     const res = response.data
+//     setAi_response(res.response)
+//     return ai_response;
+//   }).catch((error) => {
+//     if (error.response) {
+//       console.log(error.response)
+//       console.log(error.response.status)
+//       console.log(error.response.headers)
+//       }
+//   })}
+
 
 const Chatbox = () => {
   const [messages, setMessages] = useState<string[]>([]);
   const [input, setInput] = useState<string>('');
+  const [aiResponse, setAiResponse] = useState<string | null>(null); // State for AI response
+  
   const chatboxRef = useRef<HTMLDivElement>(null);
   const answersRef = useRef<HTMLDivElement>(null);
 
@@ -33,11 +38,21 @@ const Chatbox = () => {
     setInput(e.target.value);
   };
 
-  const handleSendMessage = () => {
+  const handleSendMessage = async () => {
     if (input.trim() !== '') {
       setMessages((prevMessages) => [...prevMessages, input]);
       setInput('');
+
+      try {
+        const response = await getData();
+        setAiResponse(response);
+      } catch (error) {
+        console.error("Error fetching data:", error);
+        setAiResponse('');
+      }
     }
+
+    console.log(aiResponse)
   };
 
   const handleKeyPress = (e: React.KeyboardEvent<HTMLInputElement>) => {
@@ -52,6 +67,18 @@ const Chatbox = () => {
       chatboxRef.current.scrollTop = chatboxRef.current.scrollHeight;
     }
   }, [messages]);
+
+  ///////
+  const getData = async () => {
+    try {
+      const response = await axios.post("http://127.0.0.1:5000/", {text: input});
+      return response.data.response;
+    } catch (error) {
+      console.error("Error fetching data:", error);
+      throw error;
+    }
+  };
+  //////////
 
   return (
     <div>
@@ -79,8 +106,9 @@ const Chatbox = () => {
           </button>
         </div>
 
-        <div /*ref={answersRef}*/ className="h-48 overflow-y-scroll border-b mb-4">
-          {/* Display answers here */}
+        <div ref={answersRef} className="h-48 overflow-y-scroll border-b mb-4 text-black">
+          {aiResponse}
+
         </div>
       </div>
     </div>
