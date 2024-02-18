@@ -6,6 +6,11 @@ module.exports = {
           destination: '/chat',
           permanent: false,
         },
+        {
+          source: '/home',
+          destination: '/chat',
+          permanent: false,
+        },
       ]
     },
   }
